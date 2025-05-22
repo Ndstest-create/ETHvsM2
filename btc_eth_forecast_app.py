@@ -1,4 +1,3 @@
-
 import streamlit as st
 import yfinance as yf
 import pandas as pd
@@ -20,15 +19,16 @@ eth_data = load_data('ETH-USD')
 
 # Plot prices
 st.subheader("📈 เปรียบเทียบราคาย้อนหลัง (2021 - ปัจจุบัน)")
-fig, ax = plt.subplots()
+fig1, ax = plt.subplots()
 ax.plot(btc_data['Date'], btc_data['Close'], label='Bitcoin (BTC)')
 ax.plot(eth_data['Date'], eth_data['Close'], label='Ethereum (ETH)')
 ax.set_ylabel("USD")
+ax.set_title("BTC vs ETH")
 ax.legend()
-st.pyplot(fig)
+st.pyplot(fig1)
 
 # Forecasting with Linear Regression
-st.subheader("🤖 พยากรณ์ราคาถัดไปด้วย Linear Regression")
+st.subheader("🤖 พยากรณ์ราคาวันถัดไปด้วย Linear Regression")
 
 def forecast_price(data, name):
     df = data.copy()
@@ -39,20 +39,14 @@ def forecast_price(data, name):
     model = LinearRegression()
     model.fit(X, y)
 
-    next_day = X['Days'].max() + 1
-    predicted_price = model.predict([[next_day]])[0]
+    next_day = [[X['Days'].max() + 1]]
+    predicted_price = model.predict(next_day)[0]
 
     st.write(f"📌 พยากรณ์ราคา {name} ในวันถัดไป: **${predicted_price:,.2f}**")
 
     # Plot fit line
-    plt.figure()
-    plt.scatter(X, y, alpha=0.3, label='Historical')
-    plt.plot(X, model.predict(X), color='red', label='Linear Fit')
-    plt.xlabel('Days since 2021-01-01')
-    plt.ylabel('Price (USD)')
-    plt.title(f'{name} Price & Linear Trend')
-    plt.legend()
-    st.pyplot(plt)
-
-forecast_price(btc_data, "Bitcoin (BTC)")
-forecast_price(eth_data, "Ethereum (ETH)")
+    fig2, ax2 = plt.subplots()
+    ax2.scatter(X, y, alpha=0.3, label='Historical')
+    ax2.plot(X, model.predict(X), color='red', label='Linear Fit')
+    ax2.set_xlabel('Days since 2021-01-01')
+    ax2.set_ylabel('Price (_
