@@ -19,12 +19,12 @@ eth_data = load_data('ETH-USD')
 
 # Plot prices
 st.subheader("📈 เปรียบเทียบราคาย้อนหลัง (2021 - ปัจจุบัน)")
-fig1, ax = plt.subplots()
-ax.plot(btc_data['Date'], btc_data['Close'], label='Bitcoin (BTC)')
-ax.plot(eth_data['Date'], eth_data['Close'], label='Ethereum (ETH)')
-ax.set_ylabel("USD")
-ax.set_title("BTC vs ETH")
-ax.legend()
+fig1, ax1 = plt.subplots()
+ax1.plot(btc_data['Date'], btc_data['Close'], label='Bitcoin (BTC)')
+ax1.plot(eth_data['Date'], eth_data['Close'], label='Ethereum (ETH)')
+ax1.set_ylabel("USD")
+ax1.set_title("BTC vs ETH")
+ax1.legend()
 st.pyplot(fig1)
 
 # Forecasting with Linear Regression
@@ -52,4 +52,7 @@ def forecast_price(data, name):
     ax2.set_ylabel('Price (USD)')
     ax2.set_title(f'{name} Price Trend')
     ax2.legend()
-    st.pyplot(
+    st.pyplot(fig2)
+
+forecast_price(btc_data, "Bitcoin (BT
+
