@@ -49,4 +49,7 @@ def forecast_price(data, name):
     ax2.scatter(X, y, alpha=0.3, label='Historical')
     ax2.plot(X, model.predict(X), color='red', label='Linear Fit')
     ax2.set_xlabel('Days since 2021-01-01')
-    ax2.set_ylabel('Price (_
+    ax2.set_ylabel('Price (USD)')
+    ax2.set_title(f'{name} Price Trend')
+    ax2.legend()
+    st.pyplot(
